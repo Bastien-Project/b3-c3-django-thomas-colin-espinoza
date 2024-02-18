@@ -12,4 +12,4 @@ class Site(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('edit_site', args=[str(self.id)])
+        return reverse('edit', args=[str(self.id)])

@@ -5,7 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout as auth_logout
 from django.http import HttpResponse
 import csv
-from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import get_object_or_404 
 
 from .models import Site
 from .forms import SiteForm
@@ -36,7 +37,7 @@ def site_list(request):
     return render(request, 'site_list.html', {'sites': sites})
 
 @login_required
-def add_site(request):
+def add(request):
     if request.method == 'POST':
         form = SiteForm(request.POST)
         if form.is_valid():
@@ -46,11 +47,11 @@ def add_site(request):
             return redirect('site_list')
     else:
         form = SiteForm()
-    return render(request, 'add_site.html', {'form': form})
+    return render(request, 'add.html', {'form': form})
 
 @login_required
-def edit_site(request, pk):
-    site = Site.objects.get(pk=pk)
+def edit(request, pk):
+    site = get_object_or_404(Site, pk=pk)
     if request.method == 'POST':
         form = SiteForm(request.POST, instance=site)
         if form.is_valid():
@@ -58,10 +59,10 @@ def edit_site(request, pk):
             return redirect('site_list')
     else:
         form = SiteForm(instance=site)
-    return render(request, 'edit_site.html', {'form': form})
+    return render(request, 'edit.html', {'form': form, 'site': site})  # Passer 'site' dans le contexte
 
 @login_required
-def delete_site(request, pk):
+def delete(request, pk):
     site = Site.objects.get(pk=pk)
     site.delete()
     return redirect('site_list')

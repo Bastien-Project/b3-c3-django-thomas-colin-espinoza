@@ -9,8 +9,8 @@
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1"><a href="{{ site.url }}" class="mb-1">{{ site.name }}</a></h5>
                         <div>
-                            <a href="{% url 'edit_site' site.id %}" class="btn btn-warning btn-sm me-2">Éditer</a>
-                            <form method="post" action="{% url 'delete_site' site.id %}" style="display: inline;">
+                            <a href="{% url 'edit' site.id %}" class="btn btn-warning btn-sm me-2">Éditer</a>
+                            <form method="post" action="{% url 'delete' site.id %}" style="display: inline;">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                             </form>
@@ -22,6 +22,6 @@
                 </div>
             </div>
         {% endfor %}
-        <a href="{% url 'add_site' %}" class="btn btn-primary mt-3">Ajouter un Site</a>
+        <a href="{% url 'add' %}" class="btn btn-primary mt-3">Ajouter un Site</a>
     </div>
 {% endblock %}

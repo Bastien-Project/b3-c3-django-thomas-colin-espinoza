@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container mt-5">
         <h2>Modifier le Site</h2>
-        <form method="post" action="{% url 'edit_site' site.id %}">
+        <form method="post" action="{% url 'edit' site.pk %}">
             {% csrf_token %}
 
             <div class="mb-3">
