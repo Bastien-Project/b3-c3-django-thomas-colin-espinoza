@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% block title %}Ajouter un Site{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h2>Ajouter un Site</h2>
+        <form method="post" action="{% url 'add_site' %}">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id_name" class="form-label">Nom du Site</label>
+                <input type="text" class="form-control" id="id_name" name="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_url" class="form-label">URL</label>
+                <input type="url" class="form-control" id="id_url" name="url" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+        <a href="{% url 'site_list' %}" class="btn btn-secondary mt-3">Retour à la liste des sites</a>
+    </div>
+{% endblock %}

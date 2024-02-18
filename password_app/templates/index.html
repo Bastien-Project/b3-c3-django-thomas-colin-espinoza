@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<!-- Ajoutez votre contenu commun ici -->
+<div class="position-fixed top-0 end-0">
+<button id="darkModeToggle" class="btn btn-secondary m-3">Dark Mode</button>
+{% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Déconnexion</button>
+        </form>
+    {% endif %}
+</div>
+<div class="container mt-5">
+    <h1>Bienvenue sur votre gestionnaire de mots de passe</h1>
+    <!-- Ajoutez des éléments communs à toutes les pages ici -->
+</div>
+
+<!-- Ajoutez le bloc de contenu spécifique à chaque page -->
+<div>
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Ajoutez votre pied de page commun ici -->
+<div>
+    <!-- Ajoutez des éléments communs à toutes les pages ici -->
+</div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Récupère le thème sauvegardé en localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        }
+        // Ajoutez l'écouteur d'événement au bouton darkModeToggle
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+            // Inverse le thème
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            // Enregistre le thème choisi en localStorage
+            localStorage.setItem('theme', newTheme);
+            // Applique le thème au document
+            document.documentElement.setAttribute('data-bs-theme', newTheme);
+        });
+    });
+</script>
+</html>
